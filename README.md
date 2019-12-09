@@ -13,9 +13,9 @@ kubectl create -f manifests/service.yaml
 1. kubectl get pods -o wide
 ```
 
-NAME                                   READY   STATUS    RESTARTS   AGE     IP            NODE        NOMINATED NODE   READINESS GATES
-k8-end-deployment-6c9985cd6c-xkplz     1/1     Running   0          4m22s   10.244.3.10   node1.com   <none>           <none>
-k8-end-deployment-848fbf696c-mkc87     1/1     Running   0          4s      <none>        node1.com   <none>           <none>
+NAME                                     READY   STATUS    RESTARTS   AGE     IP            NODE        NOMINATED NODE   READINESS GATES
+k8-start-deployment-6c9985cd6c-xkplz     1/1     Running   0          4m22s   10.244.3.10   node1.com   <none>           <none>
+k8-end-deployment-848fbf696c-mkc87       1/1     Running   0          4s      10.244.3.11   node2.com   <none>           <none>
 ```
 2. kubectl get svc
 ```
