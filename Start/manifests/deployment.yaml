@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind:       Deployment
+metadata:
+  name: k8-start-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8-start-deployment
+  template:
+    metadata:
+      labels:
+        app: k8-start-deployment
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoreDuringExecution:
+            - labelSelector:
+              mathExpressions:
+                - Key: "app"
+                  operator: In
+                  values:
+                  - k8-end-service
+      containers:
+        - name:  k8-start-deployment
+          image: fathepurm/k8-start-service-interpod:latest
+          ports:
+            - containerPort: 8080
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /sserver/is_ready
+              scheme: HTTP
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /sserver/is_alive
+              scheme: HTTP
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 15
+          env:
+          - name: MY_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: END_NODE_POST_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: "k8-end-service.default.svc.cluster.local:9090"
