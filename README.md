@@ -1,4 +1,4 @@
-# k8-inter-pod-communication
+# k8-inter-pod-or-node-communication
 2 Spring boot applications communicate with DNS service discovery from different PODS
 
 # Steps for execution
